@@ -36,7 +36,7 @@ class Hand:
     def __repr__(self):
         base = ""
         if self.face_down:
-            base += '|??| '
+            base += '|??|'
         for card in self.cards:
             base = base + str(card)
 
@@ -101,7 +101,7 @@ if player.total() > 21 and dealer.total() > 21:
     print("draw")
 elif player.total() == dealer.total():
     print("draw")
-elif(player.total() > dealer.total() or (player.total() <= 21 and dealer.total > 21)):
+elif(player.total() > dealer.total() or (player.total() <= 21 and dealer.total() > 21)):
     print("player wins")
 else:
     print("dealer wins")
