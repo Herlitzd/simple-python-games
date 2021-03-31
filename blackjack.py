@@ -61,55 +61,65 @@ class Hand:
         return total
 
 
-for suit in suits:
-    for card_label in card_in_suit:
-        deck.append(Card(suit, card_label))
+games = 0
+player_wins = 0
+draws = 0
+while True:
+    print("Wins/Loss/Draw/Total: "+str(player_wins)+" / " +
+          str(games-player_wins-draws)+" / "+str(draws)+" / "+str(games))
 
+    for suit in suits:
+        for card_label in card_in_suit:
+            deck.append(Card(suit, card_label))
 
-random.shuffle(deck)
+    random.shuffle(deck)
 
-dealer = Hand()
-player = Hand()
+    dealer = Hand()
+    player = Hand()
 
-player.add_card(deck.pop())
-dealer.add_card_face_down(deck.pop())
-player.add_card(deck.pop())
-dealer.add_card(deck.pop())
-
-
-def print_game():
-    print("Dealer", dealer)
-    print("Player", player)
-    print("\n")
-
-
-while(player.total() < 21):
-    print_game()
-    play = input("h or s: ")
-    print("\n")
-    if play == "h":
-        player.add_card(deck.pop())
-    else:
-        break
-
-dealer.flip()
-
-while(dealer.total() < 17):
+    player.add_card(deck.pop())
+    dealer.add_card_face_down(deck.pop())
+    player.add_card(deck.pop())
     dealer.add_card(deck.pop())
+
+    def print_game():
+        print("Dealer", dealer)
+        print("Player", player)
+        print("\n")
+
+    while(player.total() < 21):
+        print_game()
+        play = input("h or s: ")
+        print("\n")
+        if play == "h":
+            player.add_card(deck.pop())
+        else:
+            break
+
+    dealer.flip()
+
+    while(dealer.total() < 17):
+        dealer.add_card(deck.pop())
+        print_game()
+
+    print("\n\n")
     print_game()
+    games = games + 1
 
-print("\n\n")
-print_game()
-
-if player.total() > 21 and dealer.total() > 21:
-    print("draw")
-elif player.total() == dealer.total():
-    print("draw")
-elif player.total() <= 21 and dealer.total() > 21:
-    print("player wins")
-elif dealer.total() <= 21 and player.total() > 21:
-    print("dealer wins")
-elif player.total() > dealer.total():
-    print("player wins")
-else:
-    print("dealer wins")
+    if player.total() > 21 and dealer.total() > 21:
+        draws += 1
+        print("draw")
+    elif player.total() == dealer.total():
+        draws += 1
+        print("draw")
+    elif player.total() <= 21 and dealer.total() > 21:
+        player_wins += 1
+        print("player wins")
+    elif dealer.total() <= 21 and player.total() > 21:
+        print("dealer wins")
+    elif player.total() > dealer.total():
+        player_wins += 1
+        print("player wins")
+    else:
+        print("dealer wins")
+    print("\n\n")
