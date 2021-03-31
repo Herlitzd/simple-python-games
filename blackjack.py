@@ -77,9 +77,14 @@ player.add_card(deck.pop())
 dealer.add_card(deck.pop())
 
 
-while(player.total() != 21):
+def print_game():
     print("Dealer", dealer)
     print("Player", player)
+    print("\n")
+
+
+while(player.total() < 21):
+    print_game()
     play = input("h or s: ")
     print("\n")
     if play == "h":
@@ -90,18 +95,20 @@ while(player.total() != 21):
 
 while(dealer.total() < 17):
     dealer.add_card(deck.pop())
-    print("Dealer", dealer)
-    print("Player", player)
+    print_game()
 
 print("\n\n")
-print("Dealer", dealer)
-print("Player", player)
+print_game()
 
 if player.total() > 21 and dealer.total() > 21:
     print("draw")
 elif player.total() == dealer.total():
     print("draw")
-elif(player.total() > dealer.total() or (player.total() <= 21 and dealer.total() > 21)):
+elif player.total() <= 21 and dealer.total() > 21:
+    print("player wins")
+elif dealer.total() <= 21 and player.total() > 21:
+    print("dealer wins")
+elif player.total() > dealer.total():
     print("player wins")
 else:
     print("dealer wins")
