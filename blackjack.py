@@ -49,7 +49,7 @@ class Hand:
             if type(card.label) is int:
                 total = total + card.label
             else:
-                if(card == "A"):
+                if(card.label == "A"):
                     total = total + 1
                 else:
                     total = total + 10
