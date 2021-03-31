@@ -90,8 +90,9 @@ while(player.total() < 21):
     if play == "h":
         player.add_card(deck.pop())
     else:
-        dealer.flip()
         break
+
+dealer.flip()
 
 while(dealer.total() < 17):
     dealer.add_card(deck.pop())
